@@ -1,0 +1,3 @@
+[submodule "vendor/right_api_client"]
+	path = vendor/right_api_client
+	url = https://github.com/rightscale/right_api_client.git
