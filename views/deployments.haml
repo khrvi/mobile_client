@@ -1,2 +1,4 @@
 %h1 Deployment:
-%p= @deployment.name
+%p= @deployment.first.name
+%p
+  %a{:href => '/logout'}  'Logout'

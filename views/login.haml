@@ -1,0 +1,13 @@
+%h1 Log In
+%form{:action => "/login", :method => "post"}
+  %p
+    %label{:for => "email"} Email
+    %input{:type => "textbox", :name => "email", :id => "email"}
+  %p
+    %label{:for => "password"} Password
+    %input{:type => "password", :name => "password", :id => "password"}
+  %p
+    %label{:for => "account"} Account ID
+    %input{:type => "textbox", :name => "account", :id => "account"}
+  %p
+    %input{:type => "submit", :value => "Login!"}
