@@ -2,21 +2,10 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require './vendor/right_api_client/lib/right_api_client'
+require './helpers/client_helpers'
+require './controllers/dashboard'
+
 enable :sessions
-
-helpers do
-  def authorized?
-    @current_client ||= login_from_session
-  end
-
-  def current_client
-    authorized?
-  end
-
-  def login_from_session
-    session[:client]
-  end
-end
 
 before do
   # Skip before filter
@@ -54,3 +43,10 @@ get '/deployments' do
   @deployment = current_client.deployments
   haml :deployments
 end
+
+get '/dashboard/index' do
+	haml 'dashboard/index'
+end
+
+
+
