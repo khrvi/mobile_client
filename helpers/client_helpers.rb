@@ -3,9 +3,7 @@ helpers do
     @current_client ||= login_from_session
   end
 
-  def current_client
-    authorized?
-  end
+  alias_method :current_client, :authorized?
 
   def login_from_session
     session[:client]

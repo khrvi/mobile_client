@@ -45,7 +45,7 @@ get '/deployments' do
 end
 
 get '/dashboard/index' do
-	haml 'dashboard/index'
+	haml :'dashboard/index'
 end
 
 
