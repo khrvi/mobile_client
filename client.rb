@@ -44,14 +44,14 @@ get '/api/deployments' do
 end
 
 get '/api/deployments/:id' do
-  @deployment = current_client.do_get("/api/deployments/#{params[:id]}")
+  @deployment = Resource.process(self, *current_client.do_get("/api/deployments/#{params[:id]}"))
   haml :"deployments/show"
 end
 
 ["inputs","servers"].each do |action|
   get "/api/deployments/:id/#{action}" do
-    @deployment = current_client.do_get("/api/deployments/#{params[:id]}")
-    @results = current_client.do_get("/api/deployments/#{params[:id]}/#{action}")
+    @deployment = Resource.process(self, *current_client.do_get("/api/deployments/#{params[:id]}"))
+    @results = Resource.process(self, *current_client.do_get("/api/deployments/#{params[:id]}/#{action}"))
     haml :"deployments/#{action}"
   end
 end
@@ -70,16 +70,23 @@ post "/api/deployments/:id/servers" do
    }
    )
 
-  redirect "/api/deployments/#{params[:id]}/servers"
+  redirect to("/api/deployments/#{params[:id]}/servers")
 end
+
+delete "/api/servers/:id" do
+  current_client.do_delete("/api/servers/#{params[:id]}")
+
+  redirect to("/api/deployments/#{params[:id]}/servers")
+end
+
 
 # ------ Clouds ------
 get '/api/clouds' do
   @clouds = current_client.clouds
-  haml :clouds
+  haml :'clouds/index'
 end
 
 get '/api/clouds/:id' do
   @cloud = Resource.process(self, *current_client.do_get('/api/clouds/' + params[:id]))
-  haml :cloud
+  haml :'clouds/show'
 end

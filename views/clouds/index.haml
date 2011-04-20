@@ -1,0 +1,7 @@
+%h1 Clouds:
+.scrollable_list
+  - @clouds.each do |cloud|
+    %a{:href => cloud.href}= cloud.name
+    %p 
+      Description:
+      = cloud.description

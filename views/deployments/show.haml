@@ -1,9 +1,9 @@
 %h1
   %a{:href => "/api/deployments"} Deployments
   %span >
-  %a= @deployment[0]["name"]
-%h2= @deployment[0]["description"]
+  %a= @deployment.name
+%h2= @deployment.description
 %p
-  %a{:href => @deployment[0]["links"][0]["href"].to_s + "/inputs"} Inputs
-  %span ::
-  %a{:href => @deployment[0]["links"][0]["href"].to_s + "/servers"} Servers
+  - @deployment.links.each do |link|
+    %a{:href => link['href']}= link['rel'].capitalize
+    %span ::
