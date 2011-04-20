@@ -1,0 +1,39 @@
+%head
+  %style{:type => "text/css", :media => "screen"}
+    :plain
+      body{
+        margin: 0;
+        padding: 0;
+      }
+      .scrollable_list {
+        height: 500px;
+        width: 450px;
+        overflow: auto;
+        border: 1px solid #666;
+        background-color: #ccc;
+        padding: 8px;
+      }
+      .inputs {
+        width: 850px;
+      }
+      .menu {
+        background-color: #0E5386;
+        color: #fff;
+        padding: 5px;
+      }
+      .menu a {
+        color: #fff;
+      }
+      .container {
+        padding: 10px;
+      }
+%body
+  - if authorized?
+    %p.menu
+      %a{:href => '/api/clouds'}  Clouds
+      %span ::
+      %a{:href => '/api/deployments'}  Deployments
+      %span ::
+      %a{:href => '/logout'}      Logout
+  .container    
+    =yield

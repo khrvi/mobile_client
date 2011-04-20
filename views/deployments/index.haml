@@ -1,0 +1,9 @@
+%h1 Deployments:
+
+.scrollable_list
+  - @deployments.each do |deployment|
+    %p
+      %span
+        %a{:href => deployment.href}= deployment.name
+
+

@@ -3,7 +3,7 @@ require 'sinatra'
 require 'haml'
 require './vendor/right_api_client/lib/right_api_client'
 require './helpers/client_helpers'
-require './controllers/dashboard'
+
 
 enable :sessions
 
@@ -17,7 +17,7 @@ before do
 end
 
 get '/' do
-  redirect to('/deployments')
+  redirect to('api/deployments')
 end
 
 get '/login' do
@@ -39,14 +39,41 @@ get '/logout' do
   redirect to('login')
 end
 
-get '/deployments' do
-  @deployment = current_client.deployments
-  haml :deployments
+get '/api/deployments' do
+  @deployments = current_client.deployments
+  haml :"deployments/index"
 end
 
-get '/dashboard/index' do
-	haml 'dashboard/index'
+get '/api/deployments/:id' do
+  @deployment = current_client.do_get("/api/deployments/#{params[:id]}")
+  haml :"deployments/show"
 end
+
+["inputs","servers"].each do |action|
+  get "/api/deployments/:id/#{action}" do
+    @deployment = current_client.do_get("/api/deployments/#{params[:id]}")
+    @results = current_client.do_get("/api/deployments/#{params[:id]}/#{action}")
+    haml :"deployments/#{action}"
+  end
+end
+
+post "/api/deployments/:id/servers" do
+  server_template_href = "/api/server_templates/65866"
+  rackspace = current_client.clouds.first
+    
+  current_client.do_create("/api/deployments/#{params[:id]}" + "/servers", :server => {
+    :name => params[:name],
+      :deployment_href => "/api/deployments/#{params[:id]}",
+      :instance => {
+        :server_template_href => server_template_href,
+        :cloud_href => rackspace.href
+     }
+   }
+   )
+  
+  redirect "/api/deployments/#{params[:id]}/servers"
+end
+
 
 
 

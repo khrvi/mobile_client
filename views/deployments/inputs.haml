@@ -1,0 +1,12 @@
+%h1
+  %a{:href => "/api/deployments"} Deployments
+  %span >
+  %a{:href => @deployment[0]["links"][0]["href"] }= @deployment[0]["name"]
+  %span > Inputs
+.scrollable_list.inputs
+  - @results[0].each do |input|
+    %p
+      %b
+        %span= input["name"]
+      %span= input["value"]
+

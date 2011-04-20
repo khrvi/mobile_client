@@ -1,0 +1,15 @@
+%h1
+  %a{:href => "/api/deployments"} Deployments
+  %span >
+  %a{:href => @deployment[0]["links"][0]["href"] }= @deployment[0]["name"]
+  %span > Servers
+.scrollable_list.inputs
+  - @results[0].each do |result|
+    %p
+      %b
+        %span= result["name"]
+%br
+%form{:action => @deployment[0]["links"][0]["href"] + "/servers", :method => :post}
+  %label{:for => "name"} Server name:
+  %input{:type => "textbox", :name => "name", :id => "name"}
+  %input{:type => "submit", :value => "Add Server"}
