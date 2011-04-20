@@ -4,7 +4,6 @@ require 'haml'
 require './vendor/right_api_client/lib/right_api_client'
 require './helpers/client_helpers'
 
-
 enable :sessions
 
 before do
@@ -70,10 +69,17 @@ post "/api/deployments/:id/servers" do
      }
    }
    )
-  
+
   redirect "/api/deployments/#{params[:id]}/servers"
 end
 
+# ------ Clouds ------
+get '/api/clouds' do
+  @clouds = current_client.clouds
+  haml :clouds
+end
 
-
-
+get '/api/clouds/:id' do
+  @cloud = Resource.process(self, *current_client.do_get('/api/clouds/' + params[:id]))
+  haml :cloud
+end
