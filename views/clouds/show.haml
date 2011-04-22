@@ -1,7 +1,7 @@
-%h1 Cloud:
-%p
-  Name:
-  = @cloud.name
-%p
-  Description: 
-  = @cloud.description
+=haml :_header, :locals => {:title => "Server", :authbtn => false, :backbtn => false}
+%div{"data-role" => "content"}
+  %h1= @cloud.name
+  %h2
+    Description:
+    = @cloud.description
+=haml :_footer, :locals => {:title => "RS API 1.5", :onbottom => false}

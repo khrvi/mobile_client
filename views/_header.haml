@@ -1,0 +1,8 @@
+%div{"data-role" => "header", "data-backbtn" => "#{backbtn}"}
+  %h1= title
+  - if authbtn
+    - if authorized?
+      %a{ :href => "/", :class => "ui-btn-left","data-icon" => "home"} Home
+      %a{ :href => "/logout", :class => "ui-btn-right", "data-icon" => "grid"} Logout
+    -else
+      %a{ :href => "/login", "data-rel" => "dialog", "class" => "ui-btn-right"} Login

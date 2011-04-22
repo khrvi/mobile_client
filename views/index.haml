@@ -1,0 +1,11 @@
+=haml :_header, :locals => {:title => "Welcome", :authbtn => true, :backbtn => false}
+%div{"data-role" => "content"}
+  - if authorized?
+    =haml :_menu      
+  - else
+    %center
+      %h1 Welcome to Mobile client for RS API 1.5
+    %a{:href => "/login", "data-role" => "button", "data-rel" => "dialog"} Please, login to start work.
+=haml :_footer, :locals => {:title => "RS API 1.5", :onbottom => true}
+
+    

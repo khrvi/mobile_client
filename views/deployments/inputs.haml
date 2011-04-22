@@ -1,12 +1,11 @@
-%h1
-  %a{:href => "/api/deployments"} Deployments
-  %span >
-  %a{:href => @deployment.href }= @deployment.name
-  %span > Inputs
-.scrollable_list.inputs
-  - @results[0].each do |input|
-    %p
-      %b
-        %span= input["name"]
-      %span= input["value"]
+=haml :_header, :locals => {:title => "Inputs", :authbtn => true, :backbtn => true}
+%div{"data-role" => "content"}
+  %ul{"data-role" => "listview", "data-inset" => "true"}
+    - @results.each do |result|
+      %li 
+        %a{:href => "#", "data-rel" => "dialog"}
+          %h3= result.name
+          %p= result.value
+%br/
+=haml :_footer, :locals => {:title => "RS API 1.5", :onbottom => true} 
 

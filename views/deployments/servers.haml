@@ -1,17 +1,16 @@
-%h1
-  %a{:href => "/api/deployments"} Deployments
-  %span >
-  %a{:href => @deployment.href }= @deployment.name
-  %span > Servers
-.scrollable_list.inputs
-  - @results.each do |result|
-    %p
-      %b
-        %span
-          = result.name
-          %a{:href => result.href, :rel=>"nofollow", :'data-method' => "delete", :'data-confirm' => "Are you sure?"} terminate
-%br
-%form{:action => @deployment.href + "/servers", :method => :post}
-  %label{:for => "name"} Server name:
-  %input{:type => "textbox", :name => "name", :id => "name"}
-  %input{:type => "submit", :value => "Add Server"}
+=haml :_header, :locals => {:title => "Servers", :authbtn => true, :backbtn => true}
+%div{"data-role" => "content"}
+  %ul{"data-role" => "listview", "data-inset" => "true"}
+    - @results.each do |result|
+      %li 
+        %a{:href => "#{result.href}", "data-rel" => "dialog"}= result.name
+=haml :_footer, :locals => {:title => "RS API 1.5", :onbottom => true} 
+
+/
+/          = result.name
+/          %a{:href => result.href, :rel=>"nofollow", :'data-method' => "delete", :'data-confirm' => "Are you sure?"} terminate
+/
+/  %form{:action => @deployment.href + "/servers", :method => :post}
+/  %label{:for => "name"} Server name:
+/  %input{:type => "textbox", :name => "name", :id => "name"}
+/  %input{:type => "submit", :value => "Add Server"}

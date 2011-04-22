@@ -1,9 +1,10 @@
-%h1 Deployments:
-
-.scrollable_list
-  - @deployments.each do |deployment|
-    %p
-      %span
-        %a{:href => deployment.href}= deployment.name
-
-
+=haml :_header, :locals => {:title => "Deployments", :authbtn => true, :backbtn => true}
+%div{"data-role" => "content"}
+  %ul{"data-role" => "listview", "data-filter" => "true", "data-inset" => "true"}
+    - @deployments.each do |deployment|
+      %li 
+        %a{:href => deployment.href}
+          %h3= deployment.name
+          %p= deployment.description
+%br/
+=haml :_footer, :locals => {:title => "RS API 1.5", :onbottom => true}

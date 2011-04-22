@@ -1,9 +1,18 @@
-%h1
-  %a{:href => "/api/deployments"} Deployments
-  %span >
-  %a= @deployment.name
-%h2= @deployment.description
-%p
-  - @deployment.links.each do |link|
-    %a{:href => link['href']}= link['rel'].capitalize
-    %span ::
+=haml :_header, :locals => {:title => "#{@deployment.name}", :authbtn => true, :backbtn => true}
+%div{"data-role" => "content"}
+  %h2= @deployment.description
+  %ul{"data-role" => "listview", "data-inset" => "true"}
+    - ["info","servers","inputs"].each do |link|
+      %li
+        -case link
+          -when "servers"
+            %a{:href => "#"}
+              %h2= link.capitalize
+              %p= @servers.size == 0 ? "empty" : (@servers.map{|server| p server.state}[0..3]).to_s + (@servers.size > 4 ? "...#{@servers.size.to_s}x":"")
+          -else
+            %a{:href => "#"}= link.capitalize
+/    - @deployment.links.each do |link|
+/      %li 
+/        %a{:href => link['href']}= link['rel'].capitalize
+%br/
+=haml :_footer, :locals => {:title => "RS API 1.5", :onbottom => true}

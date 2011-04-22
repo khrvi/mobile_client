@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'sinatra'
+require "sinatra/reloader" if development?
 require 'haml'
+require 'json'
 require './vendor/right_api_client/lib/right_api_client'
 require './helpers/client_helpers'
 
@@ -8,18 +10,20 @@ enable :sessions
 
 before do
   # Skip before filter
-  if request.path_info == '/login'
-    redirect to('/') if authorized?
+  if request.path_info == '/login' || request.path_info == "/"
+    #redirect to('/') if authorized?
   else
-    redirect to('/login') unless authorized?
+    redirect to('/') unless authorized?
   end
 end
 
 get '/' do
-  redirect to('api/deployments')
+  #redirect to('api/deployments')
+  haml :index
 end
 
 get '/login' do
+  redirect to('/') if authorized?
   haml :login
 end
 
@@ -35,7 +39,7 @@ end
 
 get '/logout' do
   session.delete :client
-  redirect to('login')
+  redirect to('/')
 end
 
 get '/api/deployments' do
@@ -45,6 +49,7 @@ end
 
 get '/api/deployments/:id' do
   @deployment = Resource.process(self, *current_client.do_get("/api/deployments/#{params[:id]}"))
+  @servers = Resource.process(self, *current_client.do_get("/api/deployments/#{params[:id]}/servers"))
   haml :"deployments/show"
 end
 
@@ -71,6 +76,11 @@ post "/api/deployments/:id/servers" do
    )
 
   redirect to("/api/deployments/#{params[:id]}/servers")
+end
+
+get "/api/servers/:id" do
+  @server = current_client.do_get("/api/servers/#{params[:id]}")
+  haml :"servers/show"
 end
 
 delete "/api/servers/:id" do

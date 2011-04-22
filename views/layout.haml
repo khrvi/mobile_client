@@ -1,39 +1,11 @@
-%head
-  %style{:type => "text/css", :media => "screen"}
-    :plain
-      body{
-        margin: 0;
-        padding: 0;
-      }
-      .scrollable_list {
-        height: 500px;
-        width: 450px;
-        overflow: auto;
-        border: 1px solid #666;
-        background-color: #ccc;
-        padding: 8px;
-      }
-      .inputs {
-        width: 850px;
-      }
-      .menu {
-        background-color: #0E5386;
-        color: #fff;
-        padding: 5px;
-      }
-      .menu a {
-        color: #fff;
-      }
-      .container {
-        padding: 10px;
-      }
-%body
-  - if authorized?
-    %p.menu
-      %a{:href => '/api/clouds'}  Clouds
-      %span ::
-      %a{:href => '/api/deployments'}  Deployments
-      %span ::
-      %a{:href => '/logout'}      Logout
-  .container    
-    =yield
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
+    %link{"rel" => "stylesheet", "href" => "/stylesheets/jquery.mobile-1.0a4.1.min.css", "type" => "text/css"}
+    %link{"rel" => "stylesheet", "href" => "/stylesheets/client.css", "type" => "text/css"}
+    %script{:type => "text/javascript", :src  => "/javascripts/jquery-1.5.2.js"}
+    %script{:type => "text/javascript", :src  => "/javascripts/client.js"}
+    %script{:type => "text/javascript", :src  => "/javascripts/jquery.mobile-1.0a4.1.js"}
+  %body
+    %div{"data-role" => "page"}
+      =yield

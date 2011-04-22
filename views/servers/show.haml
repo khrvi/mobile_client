@@ -1,0 +1,13 @@
+=haml :_header, :locals => {:title => "Server", :authbtn => false, :backbtn => false}
+%div{"data-role" => "content"}
+  %h1= @server[0]["name"]
+  %h2
+    Description:
+    = @server[0]["description"]
+  %h2
+    State:
+    = @server[0]["state"]
+  %a{:href => "index.html", "data-role" => "button"} Launch
+  %form{:method=>"delete",:action =>@server[0]["links"][1]["href"]}
+    %input{:type => "submit", :value => "Terminate"}
+=haml :_footer, :locals => {:title => "RS API 1.5", :onbottom => false}

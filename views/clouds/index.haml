@@ -1,7 +1,10 @@
-%h1 Clouds:
-.scrollable_list
-  - @clouds.each do |cloud|
-    %a{:href => cloud.href}= cloud.name
-    %p 
-      Description:
-      = cloud.description
+=haml :_header, :locals => {:title => "Clouds", :authbtn => true, :backbtn => true}
+%div{"data-role" => "content"}
+  %ul{"data-role" => "listview", "data-filter" => "true", "data-inset" => "true"}
+    - @clouds.each do |cloud|
+      %li 
+        %a{:href => cloud.href, "data-rel" => "dialog"}
+          %h3= cloud.name
+          %p= cloud.description
+%br/
+=haml :_footer, :locals => {:title => "RS API 1.5", :onbottom => true}
